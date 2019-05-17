@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="images/Tindex.ico">
+	<link rel="stylesheet" type="text/css" href="myStyleSheet.css" />
+	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="myJavaScript.js"></script>
+	<title>Gipher</title>
+</head>
+<body>
+	<nav class="navBar">
+		<div id="nav-btn">
+			<img id="nav-icon" src="images/menu.png" alt="Menu Icon" />
+		</div>
+		<ul class="navList">
+			<li><a class="highlight" href="http://cis-iis2.temple.edu/Fall2018/CIS3344_tua07182/">Home Page</a></li>
+			<li><a href="#top">Title</a></li>
+			<li><a href="#topGifs">Top Gifs</a></li>
+			<li><a href="#bottomGifs">Bottom Gifs</a></li>
+			<li><a href="#footer">Footer</a></li>
+		</ul>
+	</nav>
+	<div class="clear"></div>
+	<header>
+		<h1 id="top">Giphy Search engine </h1>
+	</header>
+	<main>
+		<section id="topGifs">
+			<section id="search">
+				<h4> Enter a search criteria and this application will  try to match it with a <br />random gif from the Giphy API!</h4>
+				<div class="clear"></div>
+				<div id="giphDisplayRand"> <img id="putGiph" alt="Gif will apear here"></div>
+				<div class="clear"></div>
+				<section id="giphSelect">
+					<div id="giphSelector">
+						<input id="txtSearch" type="text" name="gSearch" required>
+						<input type="button" id="btnGetGiph" value="Get Giph">
+					</div>
+				</section>
+			</section>
+
+			<!--<div class="clear"></div>-->
+
+			<section id="trending">
+				<h4> Press button for a random trending gif!</h4>
+				<div class="clear"></div>
+				<div id="giphDisplayTrend"> <img id="putGiphTrending" alt="Gif will apear here"></div>
+				<div class="clear"></div>
+				<section id="giphTrend">
+					<div id="giphTrender">
+						<input type="button" id="btnGetTrending" value="Get Trending Giph">
+					</div>
+				</section>
+			</section>
+		</section>
+
+		<div class="clear"></div>
+
+		<section id="bottomGifs">
+			<section id="translate">
+				<h4> Enter a search criteria and this application will  try to translate it!<br> Weird level 0 - 10!</h4>
+				<div class="clear"></div>
+				<div id="giphDisplayTranslate"> <img id="putGiphTranslate" alt="Gif will apear here"></div>
+				<div class="clear"></div>
+				<section id="giphSelectT">
+					<div id="giphSelectorT">
+						<input id="txtTranslate" type="text" name="gTranslate" required>
+						<!--<input id="txtWeirdness" type="text" name="gWeird" required>-->
+						<input type="button" id="btnGetGiphTranslate" value="Translate">
+					</div>
+				</section>
+			</section>
+
+			<!--<div class="clear"></div>-->
+
+			<section id="realSearch">
+				<h4> Enter a search criteria and this application will  try to find it, its more specific!</h4>
+				<div class="clear"></div>
+				<div id="giphDisplaySearch"> <img id="putGiphSearch" alt="Gif will apear here"></div>
+				<div class="clear"></div>
+				<section id="giphSearch">
+					<div id="giphSearcher">
+						<input id="txtSearchGif" type="text" name="gifSearch" required>
+						<input type="button" id="btnGetGiphSearch" value="Search">
+					</div>
+				</section>
+			</section>
+		</section>
+	</main>
+	<div class="clear"></div>
+	<br />
+	<br />
+	<br />
+	<br />
+	<footer id="footer">&copy; Drew Watson, <a href="mailto:dru.w@temple.edu">dru.w@temple.edu</a></footer>
+
+	<script>
+		$(document).ready(function () {
+
+			var apiKey = "api_key=kZ9H1jMsCWVxd1MgQOqos7lhte6oWmln";
+			var weirdness;
+			var search;
+			var urlSearch = "http://api.giphy.com/v1/gifs/random?";
+			var urlTrending = "http://api.giphy.com/v1/gifs/trending?";
+			var urlTranslate = "http://api.giphy.com/v1/gifs/translate?";
+			var urlRealSearch = "http://api.giphy.com/v1/gifs/search?";
+			var giphObj = new Object();
+			var getUrl;
+			var tag;
+			var limit = "&limit=1";
+			var gifURL;
+
+			//Event handler for get giph button
+			$("#btnGetGiph").click(function () {
+
+				//Gets the users tag from text box
+				search = $("#txtSearch").val().toLowerCase();
+				tag = "&tag=" + search;
+				console.log(tag);
+
+				//Concats the search url api key and tag string
+				getUrl = urlSearch + apiKey + tag;
+
+				console.log(getUrl);
+
+				//jQuery GET response
+				var xhr = $.get(getUrl);
+				xhr.done(function (data) {
+
+					//Success message if gif/json obj found
+					console.log("success got data", data);
+
+					//Gets the gif/json object and extracts the gif from it
+					giphObj = data.data.images.original;
+
+					//Places the url into a variable
+					gifURL = giphObj.url;
+					console.log(gifURL);
+
+					//Appends the put giph img tag with the found gif url
+					$("#putGiph").attr("src", gifURL);
+				});// end jq get response
+			});//end get gif
+
+			//Event handler for get giph button
+			$("#btnGetTrending").click(function () {
+
+				//Random number for picking a gif in the json obj
+				var rand = Math.floor((Math.random() * 24) + 0);
+
+				//Concats the search url api key and tag string
+				getUrl = urlTrending + apiKey;
+
+				console.log(getUrl);
+
+				//jQuery GET response
+				var xhr = $.get(getUrl);
+				xhr.done(function (data) {
+
+					//Success message if gif/json obj found
+					console.log("success got data", data);
+
+					//Gets the gif/json object and extracts the gif from it
+					giphObj = data.data[rand].images.original;
+					console.log(giphObj);
+
+					//Places the url into a variable
+					gifURL = giphObj.url;
+					console.log(gifURL);
+
+					//Appends the put giph img tag with the found gif url
+					$("#putGiphTrending").attr("src", gifURL);
+				});// end jq get response
+			});//end get gif trend
+
+			//Event handler for get giph button
+			$("#btnGetGiphTranslate").click(function () {
+				//weirdness = $("#txtWeirdness").val().toString();
+				search = $("#txtTranslate").val().toLowerCase();
+				search = "&s=" + search;
+				console.log(search);
+
+				//Random number for picking a gif in the json obj
+				//var rand = Math.floor((Math.random() * 24) + 0);
+
+				//Concats the search url api key and tag string
+				getUrl = urlTranslate + apiKey + search;
+
+				console.log(getUrl);
+
+				//jQuery GET response
+				var xhr = $.get(getUrl);
+				xhr.done(function (data) {
+
+					//Success message if gif/json obj found
+					console.log("success got data", data);
+
+					//Gets the gif/json object and extracts the gif from it
+					giphObj = data.data.images.original;
+					console.log(giphObj);
+
+					//Places the url into a variable
+					gifURL = giphObj.url;
+					console.log(gifURL);
+
+					//Appends the put giph img tag with the found gif url
+					$("#putGiphTranslate").attr("src", gifURL);
+				});// end jq get response
+			});//end get gif translate
+
+			//Event handler for get giph button
+			$("#btnGetGiphSearch").click(function () {
+
+				search = $("#txtSearchGif").val().toLowerCase();
+				search = "q=" + search + "&";
+				//Random number for picking a gif in the json obj
+				var rand = Math.floor((Math.random() * 24) + 0);
+
+				//Concats the search url api key and tag string
+				getUrl = urlRealSearch + search + apiKey;
+
+				console.log(getUrl);
+
+				//jQuery GET response
+				var xhr = $.get(getUrl);
+				xhr.done(function (data) {
+
+					//Success message if gif/json obj found
+					console.log("success got data", data);
+
+					//Gets the gif/json object and extracts the gif from it
+					giphObj = data.data[rand].images.original;
+					console.log(giphObj);
+
+					//Places the url into a variable
+					gifURL = giphObj.url;
+					console.log(gifURL);
+
+					//Appends the put giph img tag with the found gif url
+					$("#putGiphSearch").attr("src", gifURL);
+				});// end jq get response
+			});//end get gif search
+
+			//Alternative ajax callback/get response
+			/*$.ajax({
+				type: "GET",
+				  url: getUrl,
+				 // contentType: "application/json; charset=utf-8",
+				  //dataType:"json",
+				  data: "{}",
+				  crossDomain: true,
+				  headers: {},
+				  async: true,
+				  success: function(data){
+
+				  //Success message if gif/json obj found
+					console.log("success got data", data);
+
+					//Gets the gif/json object and extracts the gif from it
+					giphObj = data.data.images.original;
+
+					//Places the url into a variable
+					gifURL = giphObj.url;
+					console.log(gifURL);
+
+					//Appends the put giph img tag with the found gif url
+					$("#putGiphTrending").attr("src", gifURL);},
+				  error: function(request,status,emessage){
+						aler("Error: " + request.responseText+" | "+status+" | "+emessage);}
+			});//ajax get*/
+		});//ready
+	</script>
+</body>
+</html>

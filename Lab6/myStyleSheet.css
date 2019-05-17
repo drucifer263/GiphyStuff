@@ -1,0 +1,178 @@
+﻿/*Responsive Design*/
+
+    /*Moblie*/
+@media screen and (max-width: 600px) {
+    body {
+       
+    }
+
+    .navBar {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        z-index: 2;
+        text-align: center;
+        width: 60%;
+    }
+
+    .navList {
+        display: none;
+    }
+
+    #nav-btn {
+        padding-top: 5px;
+        width: 80px;
+        box-sizing: border-box;
+    }
+
+    ul.navList {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navList > li > a {
+        font-size: 20px;
+    }
+
+    .navList > li {
+        display: block;
+        width: 100%;
+    }
+
+    #nav-icon {
+        width: 40px;
+    }
+}
+
+    /*Desktop*/
+    @media screen and (min-width: 600px){
+        #nav-btn{
+        display:none;
+        }
+
+       
+    }
+
+/*Section CSS*/
+body {
+    margin: 0;
+    padding: 0; 
+	background-color:darkgrey;
+}
+
+header{
+    background-color: #0094ff;
+    height: 100px;
+    padding: 20px;
+}
+main{
+
+}
+
+
+footer {
+    
+}
+
+/*Element CSS*/
+
+h2, h3, h4 {
+   
+}
+
+
+
+
+/*Class CSS*/
+
+.clear {
+    clear: both;
+    margin:0;
+    padding:0;
+    border:0;
+}
+
+.navBar{
+position:fixed;/**/
+padding-left:40%;
+z-index: 9999;
+}
+
+.navList{
+    margin:0;
+    padding:0;
+    background-color: darkgrey;
+    text-align: center;
+    z-index: 9999;
+}
+
+.navList > ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    z-index: 9999;
+}
+
+.navList > li{
+    display: inline-block;
+    padding:10px;
+    z-index: 9999;
+    
+}
+
+.navList > li >a{
+    text-decoration: none;
+    z-index: 9999;
+
+}
+
+.navList > li:hover{
+    background-color:cadetblue;
+}
+
+
+/*Id CSS*/
+
+#putGiph {
+    height:600px; 
+    width:600px;
+}
+
+#putGiphTrending {
+	height: 600px;
+	width: 600px;
+}
+
+#putGiphTranslate {
+	height: 600px;
+	width: 600px;
+}
+
+#putGiphSearch {
+	height: 600px;
+	width: 600px;
+}
+
+#search {
+	float:left;
+	width:50%;
+}
+#trending {
+	float: right;
+	width: 50%;
+}
+#translate {
+	float: left;
+	width: 50%;
+}
+
+#realSearch {
+	float: right;
+	width: 50%;
+}
+#footer {
+	float: right;
+	width: 55%;
+}
+
